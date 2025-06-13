@@ -115,6 +115,7 @@ export const updateTask = async (taskData: UpdateTaskData): Promise<void> => {
   const { id, attachment, ...updateData } = taskData;
   const docRef = doc(db, TASKS_COLLECTION, id);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updatePayload: any = {
     ...updateData,
     updatedAt: Timestamp.now(),
