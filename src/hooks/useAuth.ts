@@ -27,8 +27,11 @@ export const useAuth = () => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
       return { user: result.user, error: null };
-    } catch (error: any) {
-      return { user: null, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { user: null, error: error.message };
+      }
+      return { user: null, error: 'An unknown error occurred' };
     }
   };
 
@@ -41,8 +44,11 @@ export const useAuth = () => {
       }
 
       return { user: result.user, error: null };
-    } catch (error: any) {
-      return { user: null, error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { user: null, error: error.message };
+      }
+      return { user: null, error: 'An unknown error occurred' };
     }
   };
 
@@ -50,8 +56,11 @@ export const useAuth = () => {
     try {
       await signOut(auth);
       return { error: null };
-    } catch (error: any) {
-      return { error: error.message };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { error: error.message };
+      }
+      return { error: 'An unknown error occurred' };
     }
   };
 
